@@ -22,6 +22,7 @@ namespace VendingMachine
       {
         case InsertableCoins.Nickel:
         case InsertableCoins.Dime:
+        case InsertableCoins.Quarter:
           return true;
       }
       return false;      

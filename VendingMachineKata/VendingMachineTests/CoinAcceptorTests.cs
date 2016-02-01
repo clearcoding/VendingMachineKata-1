@@ -44,5 +44,12 @@ namespace VendingMachineTests
       Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoins.Dime));
     }
 
+    [TestMethod]
+    public void whenAQuarterIsInsertedIntoTheCoinAcceptorItShouldBeAccepted()
+    {
+      //Act & Assert
+      Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoins.Quarter));
+    }
+
   }
 }
