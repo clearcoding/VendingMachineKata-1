@@ -17,8 +17,8 @@ namespace VendingMachine
     string Message { get; set; }
 
     /// <summary>
-    /// Resets display on next read
+    /// Event for signalling upon the next read of the display
     /// </summary>
-    void SetMessageAfterNextRead(string message);
+    event EventHandler OnNextRead;
   }
 }

@@ -11,20 +11,17 @@ namespace VendingMachine
   /// </summary>
   public class Display : IDisplay
   {
-    private string _messageAfter = null;
     private string _message = string.Empty;
 
     public string Message
     {
       get
       {
-        string retVal = this._message;
-        if (this._messageAfter != null)
+        if (this.OnNextRead != null)
         {
-          this._message = this._messageAfter;
-          this._messageAfter = null;
+          this.OnNextRead(this, EventArgs.Empty);
         }
-        return retVal;
+        return this._message;
       }
       set
       {
@@ -32,9 +29,6 @@ namespace VendingMachine
       }
     }
 
-    public void SetMessageAfterNextRead(string message)
-    {
-      this._messageAfter = message;
-    }
+    public event EventHandler OnNextRead;
   }
 }
