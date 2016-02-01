@@ -81,6 +81,10 @@ namespace VendingMachine
       {
         this.Display.Message = VendingMachine.InsertCoinsMessage;
       }
+      else
+      {
+        this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
+      }
     }
 
     public decimal CurrentAmountInserted { get; private set; }
@@ -91,6 +95,7 @@ namespace VendingMachine
     #region Display Strings
 
     public const string InsertCoinsMessage = "INSERT COINS";
+    private const string CurrentAmountMessageFormat = "${0:#0.00}";
 
     #endregion
 

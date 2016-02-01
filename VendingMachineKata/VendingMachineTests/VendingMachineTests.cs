@@ -29,11 +29,12 @@ namespace VendingMachineTests
     }
 
     [TestMethod]
-    public void whenAValidCoinIsInsertedTheCurrentAmountInsertedNeedsToBeUpdated()
+    public void whenAValidCoinIsInsertedTheCurrentAmountInsertedNeedsToBeUpdatedAlongWithDisplay()
     {
       //Act & Assert
       this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfNickel, InsertableCoinSizes.SizeOfNickel);
       Assert.AreEqual((decimal)0.05, this._vendingMachine.CurrentAmountInserted);
+      Assert.AreEqual("$0.05", this._vendingMachine.Display.Message);
     }
 
     [TestMethod]
