@@ -26,6 +26,10 @@ namespace VendingMachine
       {
         return InsertedCoin.Dime;
       }
+      if ((weightOfCoin == InsertableCoinWeights.WeightOfQuarter) && (sizeOfCoin == InsertableCoinSizes.SizeOfQuarter))
+      {
+        return InsertedCoin.Quarter;
+      }
       return InsertedCoin.Rejected;
     }
   }
