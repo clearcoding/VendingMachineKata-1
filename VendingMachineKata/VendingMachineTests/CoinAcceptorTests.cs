@@ -104,5 +104,13 @@ namespace VendingMachineTests
       Assert.AreEqual((decimal)0.25, this._coinAcceptor.GetCoinValue(InsertedCoin.Quarter));
     }
 
+    [TestMethod]
+    public void aRejectedCoinIsWorthNothing()
+    {
+      //Act & Assert
+      Assert.AreEqual((decimal)0.00, this._coinAcceptor.GetCoinValue(InsertedCoin.Rejected));
+    }
+
+
   }
 }
