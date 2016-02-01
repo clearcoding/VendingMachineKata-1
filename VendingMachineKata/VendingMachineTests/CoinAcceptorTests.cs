@@ -52,18 +52,34 @@ namespace VendingMachineTests
     }
 
     [TestMethod]
-    public void whenACoinIsInsertedIntoTheCoinAcceptorOnlyWeightsOfQuartersDimesAndNickelsShouldBeAccepted()
+    public void whenACoinIsInsertedIntoTheCoinAcceptorOnlyValidWeightsShouldBeAccepted()
     {
       //Act & Assert
       const int foreignCoinWeight = 56;       // Some foreign coin weight not within our known coins
 
-      Assert.IsFalse(Enum.IsDefined(typeof(InsertableCoinWeights), foreignCoinWeight));    // Ensure our test value doesn't happen to be a valid coin by some chance
+      Assert.IsFalse(Enum.IsDefined(typeof(InsertableCoinWeights), foreignCoinWeight));    // Ensure our test value doesn't happen to be a valid by some chance
 
       // Validate against all known sizes
       var sizes = Enum.GetValues(typeof(InsertableCoinSizes));
       foreach (InsertableCoinSizes size in sizes)
       {
         Assert.AreEqual(InsertedCoin.Rejected, this._coinAcceptor.InsertCoin((InsertableCoinWeights)foreignCoinWeight, size));    // Someone's trying to trick us!
+      }
+    }
+
+    [TestMethod]
+    public void whenACoinIsInsertedIntoTheCoinAcceptorOnlyValidSizesShouldBeAccepted()
+    {
+      //Act & Assert
+      const int foreignCoinSize = 101;       // Some foreign coin size not within our known coins
+
+      Assert.IsFalse(Enum.IsDefined(typeof(InsertableCoinSizes), foreignCoinSize));    // Ensure our test value doesn't happen to be a valid by some chance
+
+      // Validate against all known weights
+      var weights = Enum.GetValues(typeof(InsertableCoinWeights));
+      foreach (InsertableCoinWeights weight in weights)
+      {
+        Assert.AreEqual(InsertedCoin.Rejected, this._coinAcceptor.InsertCoin(weight, (InsertableCoinSizes)foreignCoinSize));    // Someone's trying to trick us!
       }
     }
 
