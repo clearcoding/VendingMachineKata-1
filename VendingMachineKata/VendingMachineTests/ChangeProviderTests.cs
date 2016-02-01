@@ -15,20 +15,22 @@ namespace VendingMachineTests
   public class ChangeProviderTests
   {
     private IChangeProvider _changeProvider = null;           // Change provider UUT
+    private ICoinAppraiser _coinAppraiser = null;             // Coin approiser helper
 
     [TestInitialize]
     public void arrangeForTests()
     {
       //Arrange
       this._changeProvider = new ChangeProvider();
+      this._coinAppraiser = new CoinAppraiser();              //todo: evaluate use of mock
     }
 
     [TestMethod]
     public void whenThereIsNothingToMakeChangeFromItCannnotBeProvided()
     {
       //Act & Assert
-      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, null));
-      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, new Dictionary<InsertedCoin, int>()));
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, null, this._coinAppraiser));
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, new Dictionary<InsertedCoin, int>(), this._coinAppraiser));
     }
 
     [TestMethod]
@@ -41,7 +43,7 @@ namespace VendingMachineTests
       };
 
       //Act & Assert
-      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.04, makeChangeFrom));
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.04, makeChangeFrom, this._coinAppraiser));
     }
 
 

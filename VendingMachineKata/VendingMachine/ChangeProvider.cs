@@ -9,7 +9,7 @@ namespace VendingMachine
   public class ChangeProvider : IChangeProvider
   {
 
-    public IList<InsertedCoin> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom)
+    public IList<InsertedCoin> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom, ICoinAppraiser coinAppraiser)
     {
       if ((makeChangeFrom == null) || (makeChangeFrom.Count == 0))
       {
