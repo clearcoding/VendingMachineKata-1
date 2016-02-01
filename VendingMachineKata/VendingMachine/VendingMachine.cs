@@ -144,7 +144,14 @@ namespace VendingMachine
     private void OnDisplayReadAfterProductNotDispensed(object sender, EventArgs e)
     {
       this.Display.OnNextRead -= this.OnDisplayReadAfterProductDispensed;
-      this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
+      if (this.CurrentAmountInserted == 0)
+      {
+        this.Display.Message = VendingMachine.InsertCoinsMessage;
+      }
+      else
+      {
+        this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
+      }
     }
 
     #endregion

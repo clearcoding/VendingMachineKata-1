@@ -62,6 +62,8 @@ namespace VendingMachineTests
       Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
     }
 
+    //todo: refactor these tests below... 
+
     [TestMethod]
     public void whenEnoughMoneyHasBeenInsertedToBuyItemThenThankTheUserAndNextReadResetsDisplay()
     {
@@ -146,5 +148,46 @@ namespace VendingMachineTests
       Assert.AreEqual("PRICE $0.50", this._vendingMachine.Display.PreviousMessage);
       Assert.AreEqual("$0.25", this._vendingMachine.Display.Message);
     }
+
+    [TestMethod]
+    public void whenThereIsNoMoneyInsertedIndicatePriceAndNextReadResetsDisplayToShowInsertCoins()
+    {
+      // Special arrangements here as we need to ensure events are complete 
+      // before enforcing our assertions
+      System.Threading.ManualResetEvent eventProduct = new System.Threading.ManualResetEvent(false);
+      System.Threading.ManualResetEvent eventNextRead = new System.Threading.ManualResetEvent(false);
+      bool wasProductRaised = false;
+      bool wasReadRaised = false;
+
+      // Tricky, after product is dispensed, we will set thank you message, but ALSO on next read
+      // it will be a different message.   Wait for product changed handler to complete.
+      this._vendingMachine.ProductSelectorButtons.OnSelectedProductChanged += delegate (object sender, ProductForSale e)
+      {
+        wasProductRaised = true;
+        eventProduct.Set();
+      };
+      this._vendingMachine.Display.OnNextRead += delegate (object sender, EventArgs e)
+      {
+        wasReadRaised = true;
+        eventNextRead.Set();
+      };
+
+      // This will start the events firing
+      this._vendingMachine.ProductSelectorButtons.SelectedProduct = ProductForSale.Chips;
+
+      eventProduct.WaitOne(5000, false);
+      Assert.IsTrue(wasProductRaised);       // Ensures no false positive from a timeout
+      Assert.AreEqual((decimal)0.00, this._vendingMachine.CurrentAmountInserted);         // Make sure current amount inserted remains untouched until next read
+
+      string dummy = this._vendingMachine.Display.Message;
+      eventNextRead.WaitOne(5000, false);
+      Assert.IsTrue(wasReadRaised);         // Ensures no false positive from a timeout
+
+      Assert.AreEqual((decimal)0.00, this._vendingMachine.CurrentAmountInserted);         // Make sure current amount inserted is reset after read
+      Assert.AreEqual("PRICE $0.50", this._vendingMachine.Display.PreviousMessage);
+      Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
+    }
+
+
   }
 }
