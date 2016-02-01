@@ -31,6 +31,11 @@ namespace VendingMachine
     ProductForSale SelectedProduct { get; set; }
 
     /// <summary>
+    /// Event fired when selected product changes
+    /// </summary>
+    event EventHandler<ProductForSale> OnSelectedProductChanged;
+
+    /// <summary>
     /// Determines if a product can be selected (i.e. it can be purchased and enough money is available)
     /// </summary>
     /// <param name="toPurchase">The product being selected for purchase</param>

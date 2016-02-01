@@ -13,7 +13,28 @@ namespace VendingMachine
       this.SelectedProduct = ProductForSale.Unknown;
     }
 
-    public ProductForSale SelectedProduct { get; set; }
+    private ProductForSale _selectedProduct = ProductForSale.Unknown;
+
+    public ProductForSale SelectedProduct
+    {
+      get
+      {
+        return this._selectedProduct;
+      }
+      set
+      {
+        if (this._selectedProduct != value)
+        {
+          this._selectedProduct = value;
+          if (this.OnSelectedProductChanged != null)
+          {
+            this.OnSelectedProductChanged(this, this._selectedProduct);
+          }
+        }
+      }
+    }
+
+    public event EventHandler<ProductForSale> OnSelectedProductChanged;
 
     public bool CanSelectedProductBePurchased(decimal amountProvided)
     {

@@ -83,6 +83,20 @@ namespace VendingMachineTests
       Assert.IsFalse(this._productSelector.CanSelectedProductBePurchased(this._productSelector.GetProductPrice(ProductForSale.Cola)));
     }
 
+    [TestMethod]
+    public void whenSelectedProductChangesTheSelectedProductChangedEventShouldBeRaised()
+    {
+      //Act & Assert
+      bool wasRaised = false;
+      this._productSelector.OnSelectedProductChanged += delegate (object sender, ProductForSale selected)
+      {
+        wasRaised = true;
+      };
+
+      this._productSelector.SelectedProduct = ProductForSale.Cola;
+      Assert.IsTrue(wasRaised);
+    }
+
 
   }
 }
