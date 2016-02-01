@@ -36,5 +36,13 @@ namespace VendingMachineTests
       //Act & Assert
       Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoins.Nickel));
     }
+
+    [TestMethod]
+    public void whenADimeIsInsertedIntoTheCoinAcceptorItShouldBeAccepted()
+    {
+      //Act & Assert
+      Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoins.Dime));
+    }
+
   }
 }

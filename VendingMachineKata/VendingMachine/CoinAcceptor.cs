@@ -21,6 +21,7 @@ namespace VendingMachine
       switch (coinToInsert)
       {
         case InsertableCoins.Nickel:
+        case InsertableCoins.Dime:
           return true;
       }
       return false;      
