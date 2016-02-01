@@ -11,7 +11,12 @@ namespace VendingMachine
 
     public IList<InsertedCoin> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom, ICoinAppraiser coinAppraiser)
     {
-      if ((makeChangeFrom == null) || (makeChangeFrom.Count == 0))
+      // Ensure we have a stash to make change from and that we have an appraisor to determine value of coinage
+      if (
+            (makeChangeFrom == null) || 
+            (makeChangeFrom.Count == 0) || 
+            (coinAppraiser == null)
+         )
       {
         return null;
       }

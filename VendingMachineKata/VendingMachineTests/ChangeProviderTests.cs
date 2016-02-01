@@ -46,6 +46,18 @@ namespace VendingMachineTests
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.04, makeChangeFrom, this._coinAppraiser));
     }
 
+    [TestMethod]
+    public void whenNoAppraiserIsNotProvidedChangeCannotBeMade()
+    {
+      // Arrange
+      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
+      {
+        {InsertedCoin.Nickel, 5}
+      };
+
+      //Act & Assert
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.15, makeChangeFrom, null));
+    }
 
   }
 }
