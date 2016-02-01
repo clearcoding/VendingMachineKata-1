@@ -9,7 +9,7 @@ using VendingMachine;
 namespace VendingMachineTests
 {
   /// <summary>
-  /// Class for testing the vending machines coin acceptor
+  /// Class for testing the vending machines product selector
   /// </summary>
   [TestClass]
   public class ProductSelectorTests

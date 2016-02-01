@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoinAcceptor.cs" />
+    <Compile Include="ChangeProvider.cs" />
+    <Compile Include="IChangeProvider.cs" />
     <Compile Include="ProductSelector.cs" />
     <Compile Include="IProductSelector.cs" />
     <Compile Include="ICoinAcceptor.cs" />
