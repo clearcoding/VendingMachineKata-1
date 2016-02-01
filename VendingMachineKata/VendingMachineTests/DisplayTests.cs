@@ -32,5 +32,18 @@ namespace VendingMachineTests
       Assert.AreEqual(message, this._display.Message);
     }
 
+    [TestMethod]
+    public void shouldAllowMessageToBeSetAndDisplayedAfterNextRead()
+    {
+      //Act & Assert
+      const string message = "Testing set message";
+      const string messageAfter = "Afterwards";
+
+      this._display.Message = message;
+      this._display.SetMessageAfterNextRead(messageAfter);
+      Assert.AreEqual(message, this._display.Message);
+      Assert.AreEqual(messageAfter, this._display.Message);
+    }
+
   }
 }
