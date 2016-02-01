@@ -30,12 +30,12 @@ namespace VendingMachineTests
       Assert.AreEqual(InsertedCoin.Rejected, this._coinAcceptor.InsertCoin(InsertableCoinWeights.WeightOfPenny, InsertableCoinSizes.SizeOfPenny));
     }
 
-    //[TestMethod]
-    //public void whenANickelIsInsertedIntoTheCoinAcceptorItShouldBeAccepted()
-    //{
-    //  //Act & Assert
-    //  Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoinWeights.Nickel));
-    //}
+    [TestMethod]
+    public void whenANickelIsInsertedIntoTheCoinAcceptorItShouldBeAccepted()
+    {
+      //Act & Assert
+      Assert.AreEqual(InsertedCoin.Nickel, this._coinAcceptor.InsertCoin(InsertableCoinWeights.WeightOfNickel, InsertableCoinSizes.SizeOfNickel));
+    }
 
     //[TestMethod]
     //public void whenADimeIsInsertedIntoTheCoinAcceptorItShouldBeAccepted()

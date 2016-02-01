@@ -18,6 +18,10 @@ namespace VendingMachine
     /// <returns>True if the coin was accepted, false if not</returns>
     public InsertedCoin InsertCoin(InsertableCoinWeights weightOfCoin, InsertableCoinSizes sizeOfCoin)
     {
+      if ((weightOfCoin == InsertableCoinWeights.WeightOfNickel) && (sizeOfCoin == InsertableCoinSizes.SizeOfNickel))
+      {
+        return InsertedCoin.Nickel;
+      }
       return InsertedCoin.Rejected;
     }
   }
