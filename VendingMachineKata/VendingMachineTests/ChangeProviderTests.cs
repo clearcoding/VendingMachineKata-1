@@ -28,7 +28,22 @@ namespace VendingMachineTests
     {
       //Act & Assert
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, null));
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, new Dictionary<InsertedCoin, int>()));
     }
+
+    [TestMethod]
+    public void whenChangeIsNotMadeReturnNull()
+    {
+      // Arrange
+      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
+      {
+        {InsertedCoin.Nickel, 1}
+      };
+
+      //Act & Assert
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.04, makeChangeFrom));
+    }
+
 
   }
 }

@@ -11,7 +11,18 @@ namespace VendingMachine
 
     public IList<InsertedCoin> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom)
     {
-      return null;
+      if ((makeChangeFrom == null) || (makeChangeFrom.Count == 0))
+      {
+        return null;
+      }
+
+      List<InsertedCoin> change = new List<InsertedCoin>();
+
+      if (change.Count == 0)
+      {
+        return null;
+      }
+      return change;
     }
 
   }

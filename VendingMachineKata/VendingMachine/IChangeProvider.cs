@@ -15,7 +15,7 @@ namespace VendingMachine
     /// Makes change for the specified amount
     /// </summary>
     /// <param name="amountOfChange">The amount of money for which change is required</param>
-    /// <param name="makeChangeFrom">The change that we have to make change from</param>
+    /// <param name="makeChangeFrom">The change that we have to make change from, coin types as keys with quanities as the value</param>
     /// <returns>A list containing all coins to dispense.   Null indicates change could not be made</returns>
     IList<InsertedCoin> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom);
 
