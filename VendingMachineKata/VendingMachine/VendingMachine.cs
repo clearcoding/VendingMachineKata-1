@@ -47,6 +47,7 @@ namespace VendingMachine
       this.Display = display;
       this.Display.Message = VendingMachine.InsertCoinsMessage;
       this.ProductSelectorButtons = productSelector;
+      this.ProductSelectorButtons.OnSelectedProductChanged += this.OnProductSelected;
     }
 
     private ICoinAcceptor CoinAcceptor { get; set; }
@@ -88,12 +89,18 @@ namespace VendingMachine
       else
       {
         this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
+      }
+    }
 
-        // If enough money has been inserted for the selected product, dispense it and thank user
-        if (this.ProductSelectorButtons.CanSelectedProductBePurchased(this.CurrentAmountInserted))
-        {
-          this.Display.Message = VendingMachine.ThankYouMessage;
-        }
+    /// <summary>
+    /// Occurs when product selection is changed
+    /// </summary>
+    private void OnProductSelected(object sender, ProductForSale selected)
+    {
+      // If enough money has been inserted for the selected product, dispense it and thank user
+      if (this.ProductSelectorButtons.CanSelectedProductBePurchased(this.CurrentAmountInserted))
+      {
+        this.Display.Message = VendingMachine.ThankYouMessage;
       }
     }
 
