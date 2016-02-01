@@ -24,7 +24,8 @@ namespace VendingMachineTests
       this._vendingMachine = new VendingMachine.VendingMachine(
         new CoinAcceptor(),
         new CoinAppraiser(),
-        new Dictionary<InsertedCoin, int>());
+        new Dictionary<InsertedCoin, int>(),
+        new Display());
     }
 
     [TestMethod]
@@ -43,6 +44,15 @@ namespace VendingMachineTests
       Assert.AreEqual((decimal)0.00, this._vendingMachine.CurrentAmountInserted);
       Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Rejected]);
     }
+
+    [TestMethod]
+    public void whenNothingIsInsertedDisplayInsertCoinsMessage()
+    {
+      //Act & Assert
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfPenny, InsertableCoinSizes.SizeOfNickel);
+      Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
+    }
+
 
   }
 }

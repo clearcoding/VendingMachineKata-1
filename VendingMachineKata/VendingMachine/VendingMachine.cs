@@ -21,7 +21,8 @@ namespace VendingMachine
       this(
         new CoinAcceptor(),
         new CoinAppraiser(),
-        new Dictionary<InsertedCoin, int>())
+        new Dictionary<InsertedCoin, int>(),
+        new Display())
     {
     }
 
@@ -35,11 +36,13 @@ namespace VendingMachine
     public VendingMachine(
       ICoinAcceptor coinAcceptor,
       ICoinAppraiser coinAppraiser,
-      IDictionary<InsertedCoin, int> coinReturn)
+      IDictionary<InsertedCoin, int> coinReturn,
+      IDisplay display)
     {
       this.CoinAcceptor = coinAcceptor;
       this.CoinAppraiser = coinAppraiser;
       this.CoinReturn = coinReturn;
+      this.Display = display;
     }
 
     private ICoinAcceptor CoinAcceptor { get; set; }
@@ -48,6 +51,8 @@ namespace VendingMachine
     #endregion
 
     #region IVendingMachine Members
+
+    public IDisplay Display { get; private set;  }
 
     public void InsertCoin(InsertableCoinWeights coinWeight, InsertableCoinSizes coinSize)
     {
@@ -69,10 +74,22 @@ namespace VendingMachine
       {
         this.CurrentAmountInserted += this.CoinAppraiser.GetCoinValue(newCoin);
       }
+
+      // Update display if nothing is inserted
+      if (this.CurrentAmountInserted == 0)
+      {
+        this.Display.Message = VendingMachine.InsertCoinsMessage;
+      }
     }
 
     public decimal CurrentAmountInserted { get; private set; }
     public IDictionary<InsertedCoin, int> CoinReturn { get; private set; }
+
+    #endregion
+
+    #region Display Strings
+
+    public const string InsertCoinsMessage = "INSERT COINS";
 
     #endregion
 
