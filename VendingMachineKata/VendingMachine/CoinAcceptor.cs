@@ -36,6 +36,10 @@ namespace VendingMachine
       {
         return (decimal)0.10;
       }
+      if (coin == InsertedCoin.Quarter)
+      {
+        return (decimal)0.25;
+      }
       return (decimal)0.00;
     }
 
