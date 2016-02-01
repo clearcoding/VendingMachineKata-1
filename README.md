@@ -1,3 +1,14 @@
+Only about 50% complete with the following modules under test:
+Accept Coins, 
+Select Product, 
+Make Change
+
+I understand that it is a kata, but I also felt you would be conserned about architecture, SOLID principles, etc so I split this out into many testable units, interfaces, and classes.  Committed on all greens and feel I delivered in regards to frequent commits and tests.   Did violate open/closed a few times with rapid development.    A few smells.   Overall, I hope you understand the approach, even though it lacks completion.  I was more concerned that what is under test is good, than completing without putting other items under test.
+
+In a normal scenario, I personally would have probably submitted a pull request between each module.  But, I just did one big merge/pull request for submission to review.
+
+
+
 Vending Machine Kata
 ====================
 
