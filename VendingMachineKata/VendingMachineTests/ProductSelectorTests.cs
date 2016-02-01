@@ -27,42 +27,45 @@ namespace VendingMachineTests
     public void aColaShouldCostADollar()
     {
       //Act & Assert
-      Assert.AreEqual((decimal)1.00, this._productSelector.GetProductPrice(ProductsForSale.Cola));
+      Assert.AreEqual((decimal)1.00, this._productSelector.GetProductPrice(ProductForSale.Cola));
     }
 
     [TestMethod]
     public void aBagOfChipsShouldCostFiftyCents()
     {
       //Act & Assert
-      Assert.AreEqual((decimal)0.50, this._productSelector.GetProductPrice(ProductsForSale.Chips));
+      Assert.AreEqual((decimal)0.50, this._productSelector.GetProductPrice(ProductForSale.Chips));
     }
 
     [TestMethod]
     public void aPieceOfCandyShouldCostSixtyFiveCents()
     {
       //Act & Assert
-      Assert.AreEqual((decimal)0.65, this._productSelector.GetProductPrice(ProductsForSale.Candy));
+      Assert.AreEqual((decimal)0.65, this._productSelector.GetProductPrice(ProductForSale.Candy));
     }
 
     [TestMethod]
     public void whenThereIsNotEnoughMoneyTheProductSelectorShouldNotRecommendPurchase()
     {
       //Act & Assert
-      Assert.IsFalse(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola) - (decimal)0.01));
+      this._productSelector.SelectedProduct = ProductForSale.Cola;
+      Assert.IsFalse(this._productSelector.CanSelectedProductBePurchased(this._productSelector.GetProductPrice(ProductForSale.Cola) - (decimal)0.01));
     }
 
     [TestMethod]
     public void whenThereIsJustEnoughMoneyTheProductSelectorShouldRecommendPurchase()
     {
       //Act & Assert
-      Assert.IsTrue(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola)));
+      this._productSelector.SelectedProduct = ProductForSale.Cola;
+      Assert.IsTrue(this._productSelector.CanSelectedProductBePurchased(this._productSelector.GetProductPrice(ProductForSale.Cola)));
     }
 
     [TestMethod]
     public void whenThereIsMoreThanEnoughMoneyTheProductSelectorShouldRecommendPurchase()
     {
       //Act & Assert
-      Assert.IsTrue(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola) + (decimal)0.01));
+      this._productSelector.SelectedProduct = ProductForSale.Cola;
+      Assert.IsTrue(this._productSelector.CanSelectedProductBePurchased(this._productSelector.GetProductPrice(ProductForSale.Cola) + (decimal)0.01));
     }
 
 

@@ -12,7 +12,7 @@ namespace VendingMachine
   /// <remarks>
   /// Enum value is price of item, in cents
   /// </remarks>
-  public enum ProductsForSale
+  public enum ProductForSale
   {
     Cola = 100,
     Chips = 50,
@@ -25,16 +25,21 @@ namespace VendingMachine
   public interface IProductSelector
   {
     /// <summary>
+    /// Gets/sets currently selected product
+    /// </summary>
+    ProductForSale SelectedProduct { get; set; }
+
+    /// <summary>
     /// Determines if a product can be selected (i.e. it can be purchased and enough money is available)
     /// </summary>
     /// <param name="toPurchase">The product being selected for purchase</param>
     /// <param name="amountProvided">The money provided for the product, in dollars and cents</param>
     /// <returns>True if the product can be selected</returns>
-    bool CanProductBeSelectedForPurchase(ProductsForSale toPurchase, decimal amountProvided);
+    bool CanSelectedProductBePurchased(decimal amountProvided);
 
     /// <summary>
     /// Determines price of product, as a decimal (in dollars and cents)
     /// </summary>
-    decimal GetProductPrice(ProductsForSale product);
+    decimal GetProductPrice(ProductForSale product);
   }
 }

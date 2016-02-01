@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace VendingMachine
-{   
+{
   public class ProductSelector : IProductSelector
   {
+    public ProductForSale SelectedProduct { get; set; }
 
-    public bool CanProductBeSelectedForPurchase(ProductsForSale toSelect, decimal amountProvided)
+    public bool CanSelectedProductBePurchased(decimal amountProvided)
     {
-      return (bool)(this.GetProductPrice(toSelect) <= amountProvided);
+      return (bool)(this.GetProductPrice(this.SelectedProduct) <= amountProvided);
     }
 
-    public decimal GetProductPrice(ProductsForSale product)
+    public decimal GetProductPrice(ProductForSale product)
     {
       return (decimal)(((decimal)product) / (decimal)100);
     }
