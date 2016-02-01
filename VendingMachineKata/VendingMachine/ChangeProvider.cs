@@ -26,7 +26,8 @@ namespace VendingMachine
       decimal remaining = amountOfChange;
 
       remaining = this.CreateChange(InsertedCoin.Quarter, change, remaining, makeChangeFrom, coinAppraiser);
-      
+      remaining = this.CreateChange(InsertedCoin.Dime, change, remaining, makeChangeFrom, coinAppraiser);
+
       // Return
       if (change.Count == 0)
       {
