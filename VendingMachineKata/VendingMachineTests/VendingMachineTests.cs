@@ -25,7 +25,8 @@ namespace VendingMachineTests
         new CoinAcceptor(),
         new CoinAppraiser(),
         new Dictionary<InsertedCoin, int>(),
-        new Display());
+        new Display(),
+        new ProductSelector());
     }
 
     [TestMethod]
@@ -54,12 +55,23 @@ namespace VendingMachineTests
       Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
     }
 
-
     [TestMethod]
     public void whenInitiallyStartedShouldDisplayInsertCoinsMessage()
     {
       //Act & Assert
       Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
+    }
+
+    [TestMethod]
+    public void whenEnoughMoneyHasBeenInsertedToBuyItemThenThankTheUser()
+    {
+      //Act & Assert
+      this._vendingMachine.ProductSelectorButtons.SelectedProduct = ProductForSale.Chips;
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfQuarter, InsertableCoinSizes.SizeOfQuarter);
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfQuarter, InsertableCoinSizes.SizeOfQuarter);
+
+      Assert.AreEqual((decimal)0.50, this._vendingMachine.CurrentAmountInserted);
+      Assert.AreEqual(VendingMachine.VendingMachine.ThankYouMessage, this._vendingMachine.Display.Message);
     }
 
   }

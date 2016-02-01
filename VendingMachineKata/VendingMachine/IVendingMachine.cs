@@ -30,5 +30,10 @@ namespace VendingMachine
     /// Gets the current display in use
     /// </summary>
     IDisplay Display { get; }
+
+    /// <summary>
+    /// Interface for product selection
+    /// </summary>
+    IProductSelector ProductSelectorButtons { get;  }
   }
 }

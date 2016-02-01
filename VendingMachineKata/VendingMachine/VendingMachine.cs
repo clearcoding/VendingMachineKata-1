@@ -22,7 +22,8 @@ namespace VendingMachine
         new CoinAcceptor(),
         new CoinAppraiser(),
         new Dictionary<InsertedCoin, int>(),
-        new Display())
+        new Display(),
+        new ProductSelector())
     {
     }
 
@@ -37,13 +38,15 @@ namespace VendingMachine
       ICoinAcceptor coinAcceptor,
       ICoinAppraiser coinAppraiser,
       IDictionary<InsertedCoin, int> coinReturn,
-      IDisplay display)
+      IDisplay display,
+      IProductSelector productSelector)
     {
       this.CoinAcceptor = coinAcceptor;
       this.CoinAppraiser = coinAppraiser;
       this.CoinReturn = coinReturn;
       this.Display = display;
       this.Display.Message = VendingMachine.InsertCoinsMessage;
+      this.ProductSelectorButtons = productSelector;
     }
 
     private ICoinAcceptor CoinAcceptor { get; set; }
@@ -54,6 +57,7 @@ namespace VendingMachine
     #region IVendingMachine Members
 
     public IDisplay Display { get; private set;  }
+    public IProductSelector ProductSelectorButtons { get; private set;  }
 
     public void InsertCoin(InsertableCoinWeights coinWeight, InsertableCoinSizes coinSize)
     {
@@ -76,7 +80,7 @@ namespace VendingMachine
         this.CurrentAmountInserted += this.CoinAppraiser.GetCoinValue(newCoin);
       }
 
-      // Update display if nothing is inserted
+      // Update display
       if (this.CurrentAmountInserted == 0)
       {
         this.Display.Message = VendingMachine.InsertCoinsMessage;
@@ -84,6 +88,12 @@ namespace VendingMachine
       else
       {
         this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
+
+        // If enough money has been inserted for the selected product, dispense it and thank user
+        if (this.ProductSelectorButtons.CanSelectedProductBePurchased(this.CurrentAmountInserted))
+        {
+          this.Display.Message = VendingMachine.ThankYouMessage;
+        }
       }
     }
 
@@ -96,6 +106,7 @@ namespace VendingMachine
 
     public const string InsertCoinsMessage = "INSERT COINS";
     private const string CurrentAmountMessageFormat = "${0:#0.00}";
+    public const string ThankYouMessage = "THANK YOU";
 
     #endregion
 
