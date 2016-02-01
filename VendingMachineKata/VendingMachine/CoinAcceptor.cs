@@ -26,6 +26,10 @@ namespace VendingMachine
       return InsertedCoin.Rejected;
     }
 
+    public decimal GetCoinValue(InsertedCoin coin)
+    {
+      return (decimal)0.05;
+    }
 
   }
 }

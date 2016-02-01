@@ -83,5 +83,12 @@ namespace VendingMachineTests
       }
     }
 
+    [TestMethod]
+    public void aNickelIsWorthFiveCents()
+    {
+      //Act & Assert
+      Assert.AreEqual((decimal)0.05, this._coinAcceptor.GetCoinValue(InsertedCoin.Nickel));
+    }
+
   }
 }
