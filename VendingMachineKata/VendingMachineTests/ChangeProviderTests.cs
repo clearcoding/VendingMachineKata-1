@@ -59,5 +59,21 @@ namespace VendingMachineTests
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.15, makeChangeFrom, null));
     }
 
+    [TestMethod]
+    public void whenQuartersAreAvailableUseThem()
+    {
+      // Arrange
+      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
+      {
+        {InsertedCoin.Quarter, 5}
+      };
+
+      //Act & Assert
+      IDictionary<InsertedCoin, int> change = this._changeProvider.MakeChange((decimal)0.50, makeChangeFrom, this._coinAppraiser);
+      Assert.IsNotNull(change);
+      Assert.AreEqual(2, change[InsertedCoin.Quarter]);
+      Assert.AreEqual(3, makeChangeFrom[InsertedCoin.Quarter]);
+    }
+
   }
 }
