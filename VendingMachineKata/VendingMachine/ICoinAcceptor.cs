@@ -7,19 +7,38 @@ using System.Threading.Tasks;
 namespace VendingMachine
 {
   /// <summary>
-  /// Enum containing coins that may be placed in an ICoinAcceptor
+  /// Enum containing weights of coins that may be placed in an ICoinAcceptor
   /// </summary>
-  /// <remarks>
-  /// Enum value represents value of coin, in cents
-  /// </remarks>
-  public enum InsertableCoins
+  public enum InsertableCoinWeights
   {
-    Penny = 1,
-    Nickel = 5,
-    Dime = 10,
-    Quarter = 25
+    WeightOfPenny,
+    WeightOfNickel,
+    WeightOfDime,
+    WeightOfQuarter
   }
 
+  /// <summary>
+  /// Enum containing sizes of coins that may be placed in an ICoinAcceptor
+  /// </summary>
+  public enum InsertableCoinSizes
+  {
+    SizeOfPenny,
+    SizeOfNickel,
+    SizeOfDime,
+    SizeOfQuarter
+  }
+
+  /// <summary>
+  /// Enum containing coins that may be placed in an ICoinAcceptor
+  /// </summary>
+  public enum InsertedCoin
+  {
+    Nickel,
+    Dime,
+    Quarter,
+    Rejected
+  }
+    
   /// <summary>
   /// Interface for coin acceptor
   /// </summary>
@@ -28,8 +47,8 @@ namespace VendingMachine
     /// <summary>
     /// Inserts a coin into the acceptor
     /// </summary>
-    /// <param name="coinToInsert">Coin to be inserted into the acceptor</param>
-    /// <returns>True if the coin was accepted, false if not</returns>
-    bool InsertCoin(InsertableCoins coinToInsert);
+    /// <param name="weightOfCoin">Weight of coin inserted into the acceptor</param>
+    /// <returns>InsertableCoins.Rejected if an unknown coin, other enumeration values if valid</returns>
+    InsertedCoin InsertCoin(InsertableCoinWeights weightOfCoin, InsertableCoinSizes sizeOfCoin);
   }
 }
