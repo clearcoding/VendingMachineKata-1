@@ -20,5 +20,10 @@ namespace VendingMachine
     /// Current amount, in dollars, inserted into the machine
     /// </summary>
     decimal CurrentAmountInserted { get; }
+
+    /// <summary>
+    /// Coin return, consisting of types of coins and associated quantity
+    /// </summary>
+    IDictionary<InsertedCoin, int> CoinReturn { get; }
   }
 }

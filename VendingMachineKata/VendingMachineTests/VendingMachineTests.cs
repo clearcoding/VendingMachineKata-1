@@ -20,9 +20,11 @@ namespace VendingMachineTests
     public void arrangeForTests()
     {
       //Arrange
+      // NOTE: IoC probably needed in future
       this._vendingMachine = new VendingMachine.VendingMachine(
         new CoinAcceptor(),
-        new CoinAppraiser());
+        new CoinAppraiser(),
+        new Dictionary<InsertedCoin, int>());
     }
 
     [TestMethod]
@@ -31,6 +33,15 @@ namespace VendingMachineTests
       //Act & Assert
       this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfNickel, InsertableCoinSizes.SizeOfNickel);
       Assert.AreEqual((decimal)0.05, this._vendingMachine.CurrentAmountInserted);
+    }
+
+    [TestMethod]
+    public void whenAnInvalidCoinIsInsertedItShouldBePlacedInTheCoinReturn()
+    {
+      //Act & Assert
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfPenny, InsertableCoinSizes.SizeOfNickel);
+      Assert.AreEqual((decimal)0.00, this._vendingMachine.CurrentAmountInserted);
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Rejected]);
     }
 
   }
