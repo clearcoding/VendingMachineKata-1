@@ -51,5 +51,14 @@ namespace VendingMachineTests
       Assert.IsTrue(this._coinAcceptor.InsertCoin(InsertableCoins.Quarter));
     }
 
+    [TestMethod]
+    public void whenACoinIsInsertedIntoTheCoinAcceptorOnlyQuartersDimesAndNickelsShouldBeAccepted()
+    {
+      //Act & Assert
+      const int foreignCoin = 56;                                                   // Some foreign coin value not within our known coins
+      Assert.IsFalse(Enum.IsDefined(typeof(InsertableCoins), foreignCoin));         // Ensure our test value doesn't happen to be a valid coin by some chance
+      Assert.IsFalse(this._coinAcceptor.InsertCoin((InsertableCoins)foreignCoin));  // Someone's trying to trick us!
+    }
+
   }
 }

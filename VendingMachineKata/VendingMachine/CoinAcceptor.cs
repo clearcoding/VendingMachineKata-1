@@ -24,8 +24,11 @@ namespace VendingMachine
         case InsertableCoins.Dime:
         case InsertableCoins.Quarter:
           return true;
-      }
-      return false;      
+
+        case InsertableCoins.Penny:
+        default:
+          return false;
+      } 
     }
   }
 }
