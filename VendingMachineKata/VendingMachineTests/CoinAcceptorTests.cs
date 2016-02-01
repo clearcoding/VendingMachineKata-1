@@ -83,34 +83,5 @@ namespace VendingMachineTests
       }
     }
 
-    [TestMethod]
-    public void aNickelIsWorthFiveCents()
-    {
-      //Act & Assert
-      Assert.AreEqual((decimal)0.05, this._coinAcceptor.GetCoinValue(InsertedCoin.Nickel));
-    }
-
-    [TestMethod]
-    public void aDimeIsWorthTenCents()
-    {
-      //Act & Assert
-      Assert.AreEqual((decimal)0.10, this._coinAcceptor.GetCoinValue(InsertedCoin.Dime));
-    }
-
-    [TestMethod]
-    public void aQuarterIsWorthTwentyFiveCents()
-    {
-      //Act & Assert
-      Assert.AreEqual((decimal)0.25, this._coinAcceptor.GetCoinValue(InsertedCoin.Quarter));
-    }
-
-    [TestMethod]
-    public void aRejectedCoinIsWorthNothing()
-    {
-      //Act & Assert
-      Assert.AreEqual((decimal)0.00, this._coinAcceptor.GetCoinValue(InsertedCoin.Rejected));
-    }
-
-
   }
 }

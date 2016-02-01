@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoinAppraiser.cs" />
     <Compile Include="CoinAcceptor.cs" />
     <Compile Include="ChangeProvider.cs" />
     <Compile Include="IChangeProvider.cs" />
+    <Compile Include="ICoinAppraisor.cs" />
     <Compile Include="ProductSelector.cs" />
     <Compile Include="IProductSelector.cs" />
     <Compile Include="ICoinAcceptor.cs" />
