@@ -48,9 +48,14 @@ namespace VendingMachineTests
     public void whenThereIsNotEnoughMoneyTheProductSelectorShouldNotRecommendPurchase()
     {
       //Act & Assert
-      //NOTE: This test hard codes a price lower than purchase price, 
-      //because known prices of products are enforced by tests above
-      Assert.IsFalse(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, (decimal)0.50));
+      Assert.IsFalse(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola) - (decimal)0.01));
+    }
+
+    [TestMethod]
+    public void whenThereIsJustEnoughMoneyTheProductSelectorShouldRecommendPurchase()
+    {
+      //Act & Assert
+      Assert.IsTrue(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola)));
     }
 
 
