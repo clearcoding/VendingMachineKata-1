@@ -58,6 +58,13 @@ namespace VendingMachineTests
       Assert.IsTrue(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola)));
     }
 
+    [TestMethod]
+    public void whenThereIsMoreThanEnoughMoneyTheProductSelectorShouldRecommendPurchase()
+    {
+      //Act & Assert
+      Assert.IsTrue(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, this._productSelector.GetProductPrice(ProductsForSale.Cola) + (decimal)0.01));
+    }
+
 
   }
 }
