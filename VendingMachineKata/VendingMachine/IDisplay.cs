@@ -17,6 +17,11 @@ namespace VendingMachine
     string Message { get; set; }
 
     /// <summary>
+    /// Gets previous message that was displayed
+    /// </summary>
+    string PreviousMessage { get; }
+
+    /// <summary>
     /// Event for signalling upon the next read of the display
     /// </summary>
     event EventHandler OnNextRead;

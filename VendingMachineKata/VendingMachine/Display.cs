@@ -25,9 +25,12 @@ namespace VendingMachine
       }
       set
       {
+        this.PreviousMessage = this._message;
         this._message = value;
       }
     }
+
+    public string PreviousMessage { get; private set; }
 
     public event EventHandler OnNextRead;
   }
