@@ -43,6 +43,7 @@ namespace VendingMachine
       this.CoinAppraiser = coinAppraiser;
       this.CoinReturn = coinReturn;
       this.Display = display;
+      this.Display.Message = VendingMachine.InsertCoinsMessage;
     }
 
     private ICoinAcceptor CoinAcceptor { get; set; }

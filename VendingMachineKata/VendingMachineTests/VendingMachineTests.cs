@@ -54,5 +54,12 @@ namespace VendingMachineTests
     }
 
 
+    [TestMethod]
+    public void whenInitiallyStartedShouldDisplayInsertCoinsMessage()
+    {
+      //Act & Assert
+      Assert.AreEqual(VendingMachine.VendingMachine.InsertCoinsMessage, this._vendingMachine.Display.Message);
+    }
+
   }
 }
