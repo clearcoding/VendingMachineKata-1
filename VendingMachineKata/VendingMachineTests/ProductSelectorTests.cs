@@ -37,5 +37,12 @@ namespace VendingMachineTests
       Assert.AreEqual((decimal)0.50, this._productSelector.GetProductPrice(ProductsForSale.Chips));
     }
 
+    [TestMethod]
+    public void aPieceOfCandyShouldCostSixtyFiveCents()
+    {
+      //Act & Assert
+      Assert.AreEqual((decimal)0.65, this._productSelector.GetProductPrice(ProductsForSale.Candy));
+    }
+
   }
 }
