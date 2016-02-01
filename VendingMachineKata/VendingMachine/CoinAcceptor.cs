@@ -26,22 +26,5 @@ namespace VendingMachine
       return InsertedCoin.Rejected;
     }
 
-    public decimal GetCoinValue(InsertedCoin coin)
-    {
-      if (coin == InsertedCoin.Nickel)
-      {
-        return (decimal)0.05;
-      }
-      if (coin == InsertedCoin.Dime)
-      {
-        return (decimal)0.10;
-      }
-      if (coin == InsertedCoin.Quarter)
-      {
-        return (decimal)0.25;
-      }
-      return (decimal)0.00;
-    }
-
   }
 }

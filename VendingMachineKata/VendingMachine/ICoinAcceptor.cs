@@ -51,11 +51,5 @@ namespace VendingMachine
     /// <returns>InsertableCoins.Rejected if an unknown coin, other enumeration values if valid</returns>
     InsertedCoin InsertCoin(InsertableCoinWeights weightOfCoin, InsertableCoinSizes sizeOfCoin);
 
-    /// <summary>
-    /// Gets value of coin
-    /// </summary>
-    /// <param name="coin">The coin to obtain value from</param>
-    /// <returns>Value of coin, in dollars</returns>
-    decimal GetCoinValue(InsertedCoin coin);
   }
 }
