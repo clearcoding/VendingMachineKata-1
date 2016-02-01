@@ -11,7 +11,7 @@ namespace VendingMachine
 
     public bool CanProductBeSelectedForPurchase(ProductsForSale toSelect, decimal amountProvided)
     {
-      return false;
+      return (bool)(this.GetProductPrice(toSelect) <= amountProvided);
     }
 
     public decimal GetProductPrice(ProductsForSale product)

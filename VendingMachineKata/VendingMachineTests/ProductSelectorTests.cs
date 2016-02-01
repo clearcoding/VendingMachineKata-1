@@ -44,5 +44,15 @@ namespace VendingMachineTests
       Assert.AreEqual((decimal)0.65, this._productSelector.GetProductPrice(ProductsForSale.Candy));
     }
 
+    [TestMethod]
+    public void whenThereIsNotEnoughMoneyTheProductSelectorShouldNotRecommendPurchase()
+    {
+      //Act & Assert
+      //NOTE: This test hard codes a price lower than purchase price, 
+      //because known prices of products are enforced by tests above
+      Assert.IsFalse(this._productSelector.CanProductBeSelectedForPurchase(ProductsForSale.Cola, (decimal)0.50));
+    }
+
+
   }
 }
