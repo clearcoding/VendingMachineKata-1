@@ -43,6 +43,8 @@
     <Compile Include="CoinAppraiser.cs" />
     <Compile Include="CoinAcceptor.cs" />
     <Compile Include="ChangeProvider.cs" />
+    <Compile Include="VendingMachine.cs" />
+    <Compile Include="IVendingMachine.cs" />
     <Compile Include="IChangeProvider.cs" />
     <Compile Include="ICoinAppraisor.cs" />
     <Compile Include="ProductSelector.cs" />
