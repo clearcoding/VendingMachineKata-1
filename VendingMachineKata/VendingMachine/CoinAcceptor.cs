@@ -28,7 +28,15 @@ namespace VendingMachine
 
     public decimal GetCoinValue(InsertedCoin coin)
     {
-      return (decimal)0.05;
+      if (coin == InsertedCoin.Nickel)
+      {
+        return (decimal)0.05;
+      }
+      if (coin == InsertedCoin.Dime)
+      {
+        return (decimal)0.10;
+      }
+      return (decimal)0.00;
     }
 
   }

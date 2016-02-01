@@ -90,5 +90,12 @@ namespace VendingMachineTests
       Assert.AreEqual((decimal)0.05, this._coinAcceptor.GetCoinValue(InsertedCoin.Nickel));
     }
 
+    [TestMethod]
+    public void aDimeIsWorthTenCents()
+    {
+      //Act & Assert
+      Assert.AreEqual((decimal)0.10, this._coinAcceptor.GetCoinValue(InsertedCoin.Dime));
+    }
+
   }
 }
