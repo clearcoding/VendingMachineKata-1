@@ -8,6 +8,11 @@ namespace VendingMachine
 {
   public class ProductSelector : IProductSelector
   {
+    public ProductSelector()
+    {
+      this.SelectedProduct = ProductForSale.Unknown;
+    }
+
     public ProductForSale SelectedProduct { get; set; }
 
     public bool CanSelectedProductBePurchased(decimal amountProvided)

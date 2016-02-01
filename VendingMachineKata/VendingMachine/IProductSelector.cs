@@ -16,7 +16,8 @@ namespace VendingMachine
   {
     Cola = 100,
     Chips = 50,
-    Candy = 65
+    Candy = 65,
+    Unknown = 0
   }
     
   /// <summary>
