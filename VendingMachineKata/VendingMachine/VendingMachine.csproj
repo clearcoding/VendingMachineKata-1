@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoinAcceptor.cs" />
+    <Compile Include="ProductSelector.cs" />
+    <Compile Include="IProductSelector.cs" />
     <Compile Include="ICoinAcceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
