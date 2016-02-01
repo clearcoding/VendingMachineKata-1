@@ -27,9 +27,10 @@ namespace VendingMachine
 
       remaining = this.CreateChange(InsertedCoin.Quarter, change, remaining, makeChangeFrom, coinAppraiser);
       remaining = this.CreateChange(InsertedCoin.Dime, change, remaining, makeChangeFrom, coinAppraiser);
+      remaining = this.CreateChange(InsertedCoin.Nickel, change, remaining, makeChangeFrom, coinAppraiser);
 
       // Return
-      if (change.Count == 0)
+      if ((change.Count == 0) || (remaining > 0))
       {
         return null;
       }
@@ -66,7 +67,7 @@ namespace VendingMachine
         {
           change[coinToUse] += numCoins;
         }
-        else
+        else if (numCoins > 0)
         {
           change.Add(coinToUse, numCoins);
         }
