@@ -102,6 +102,7 @@ namespace VendingMachine
     public const string InsertCoinsMessage = "INSERT COINS";
     private const string CurrentAmountMessageFormat = "${0:#0.00}";
     public const string ThankYouMessage = "THANK YOU";
+    private const string PriceMessageFormat = "PRICE ${0:#0.00}";
 
     /// <summary>
     /// Occurs when product selection is changed
@@ -117,18 +118,33 @@ namespace VendingMachine
         // INSERT COINS message
         this.Display.OnNextRead += this.OnDisplayReadAfterProductDispensed;
       }
+      else
+      {
+        this.Display.Message = string.Format(VendingMachine.PriceMessageFormat, this.ProductSelectorButtons.GetProductPrice(selected));
+        
+        // Subscribe so that on next read, we can display the PRICE and display the
+        // INSERT COINS message or current amount inserted
+        this.Display.OnNextRead += this.OnDisplayReadAfterProductNotDispensed;
+      }
     }
 
     /// <summary>
     /// Occurs after product is dispensed, resets amount inserted, and displays new message
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void OnDisplayReadAfterProductDispensed(object sender, EventArgs e)
     {
       this.Display.OnNextRead -= this.OnDisplayReadAfterProductDispensed;
       this.Display.Message = VendingMachine.InsertCoinsMessage;
       this.CurrentAmountInserted = 0;
+    }
+
+    /// <summary>
+    /// Occurs after product is not dispensed, displays INSERT COINS or amount inserted
+    /// </summary>
+    private void OnDisplayReadAfterProductNotDispensed(object sender, EventArgs e)
+    {
+      this.Display.OnNextRead -= this.OnDisplayReadAfterProductDispensed;
+      this.Display.Message = string.Format(VendingMachine.CurrentAmountMessageFormat, this.CurrentAmountInserted);
     }
 
     #endregion
