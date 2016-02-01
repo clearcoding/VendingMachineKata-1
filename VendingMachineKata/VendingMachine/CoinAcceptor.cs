@@ -16,8 +16,13 @@ namespace VendingMachine
     /// </summary>
     /// <param name="coinToInsert">Coin to be inserted into the acceptor</param>
     /// <returns>True if the coin was accepted, false if not</returns>
-    public bool InsertCoin(AllowableCoins coinToInsert)
+    public bool InsertCoin(InsertableCoins coinToInsert)
     {
+      switch (coinToInsert)
+      {
+        case InsertableCoins.Nickel:
+          return true;
+      }
       return false;      
     }
   }

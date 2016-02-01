@@ -12,7 +12,7 @@ namespace VendingMachine
   /// <remarks>
   /// Enum value represents value of coin, in cents
   /// </remarks>
-  public enum AllowableCoins
+  public enum InsertableCoins
   {
     Penny = 1,
     Nickel = 5,
@@ -30,6 +30,6 @@ namespace VendingMachine
     /// </summary>
     /// <param name="coinToInsert">Coin to be inserted into the acceptor</param>
     /// <returns>True if the coin was accepted, false if not</returns>
-    bool InsertCoin(AllowableCoins coinToInsert);
+    bool InsertCoin(InsertableCoins coinToInsert);
   }
 }
