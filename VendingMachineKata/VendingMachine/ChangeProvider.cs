@@ -22,12 +22,25 @@ namespace VendingMachine
       }
 
       // Calculate change
+
+      //*****************************************************
+      //*****************************************************
+      // todo: smells, need second set of eyes
+      // there are better ways to do this, but for now IJW
+      // it's covered under test, so we should know if it fails
+      // Although, I doubt full code coverage exists within current 
+      // test harness
+
       IDictionary<InsertedCoin, int> change = new Dictionary<InsertedCoin, int>();
       decimal remaining = amountOfChange;
 
       remaining = this.CreateChange(InsertedCoin.Quarter, change, remaining, makeChangeFrom, coinAppraiser);
       remaining = this.CreateChange(InsertedCoin.Dime, change, remaining, makeChangeFrom, coinAppraiser);
       remaining = this.CreateChange(InsertedCoin.Nickel, change, remaining, makeChangeFrom, coinAppraiser);
+
+      //
+      //*****************************************************
+      //*****************************************************
 
       // Return
       if ((change.Count == 0) || (remaining > 0))
