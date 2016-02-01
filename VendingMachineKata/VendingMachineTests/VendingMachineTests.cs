@@ -26,7 +26,9 @@ namespace VendingMachineTests
         new CoinAppraiser(),
         new Dictionary<InsertedCoin, int>(),
         new Display(),
-        new ProductSelector());
+        new ProductSelector(),
+        new ChangeProvider(),
+        new Dictionary<InsertedCoin, int>());
     }
 
     [TestMethod]
@@ -189,5 +191,38 @@ namespace VendingMachineTests
     }
 
 
+    [TestMethod]
+    public void whenProductIsPurchasedAndItCostsLessThanInsertedMakeChange()
+    {
+      // Special arrangements here as we need to ensure events are complete 
+      // before enforcing our assertions
+      System.Threading.ManualResetEvent eventProduct = new System.Threading.ManualResetEvent(false);
+      bool wasProductRaised = false;
+
+      // Insert coins
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfQuarter, InsertableCoinSizes.SizeOfQuarter);
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfQuarter, InsertableCoinSizes.SizeOfQuarter);
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfQuarter, InsertableCoinSizes.SizeOfQuarter);
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfDime, InsertableCoinSizes.SizeOfDime);
+      this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfNickel, InsertableCoinSizes.SizeOfNickel);
+
+      // Tricky, after product is dispensed, begin dispensing change, so we need to know when event happens
+      this._vendingMachine.ProductSelectorButtons.OnSelectedProductChanged += delegate (object sender, ProductForSale e)
+      {
+        wasProductRaised = true;
+        eventProduct.Set();
+      };
+
+      // This will start the events firing
+      this._vendingMachine.ProductSelectorButtons.SelectedProduct = ProductForSale.Chips;
+
+      eventProduct.WaitOne(5000, false);
+      Assert.IsTrue(wasProductRaised);       // Ensures no false positive from a timeout
+
+      // Check for our left over change
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Quarter]);
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Dime]);
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Nickel]);
+    }
   }
 }
