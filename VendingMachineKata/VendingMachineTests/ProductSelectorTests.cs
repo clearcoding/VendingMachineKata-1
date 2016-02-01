@@ -75,6 +75,14 @@ namespace VendingMachineTests
       Assert.AreEqual(ProductForSale.Unknown, this._productSelector.SelectedProduct);
     }
 
+    [TestMethod]
+    public void whenThereIsNoProductSelectedTheProductSelectorShouldNotRecommendPurchase()
+    {
+      //Act & Assert
+      this._productSelector.SelectedProduct = ProductForSale.Unknown;
+      Assert.IsFalse(this._productSelector.CanSelectedProductBePurchased(this._productSelector.GetProductPrice(ProductForSale.Cola)));
+    }
+
 
   }
 }
