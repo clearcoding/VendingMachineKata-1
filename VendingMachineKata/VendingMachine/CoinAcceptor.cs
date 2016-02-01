@@ -22,6 +22,10 @@ namespace VendingMachine
       {
         return InsertedCoin.Nickel;
       }
+      if ((weightOfCoin == InsertableCoinWeights.WeightOfDime) && (sizeOfCoin == InsertableCoinSizes.SizeOfDime))
+      {
+        return InsertedCoin.Dime;
+      }
       return InsertedCoin.Rejected;
     }
   }
