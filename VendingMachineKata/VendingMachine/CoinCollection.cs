@@ -34,6 +34,14 @@ namespace VendingMachine
 
     public void Add(InsertedCoin typeOfCoin, int quantity)
     {
+      if (this.AllCoins.ContainsKey(typeOfCoin))
+      {
+        this.AllCoins[typeOfCoin] += quantity;
+      }
+      else
+      {
+        this.AllCoins[typeOfCoin] = quantity;
+      }
     }
 
     #endregion
