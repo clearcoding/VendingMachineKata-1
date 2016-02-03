@@ -38,7 +38,13 @@ namespace VendingMachine
     {
       int existingQuantity = 0;
       this.AllCoins.TryGetValue(typeOfCoin, out existingQuantity);
-      this.AllCoins[typeOfCoin] = (quantity + existingQuantity);
+      existingQuantity += quantity;
+      if (existingQuantity < 0)
+      {
+        quantity -= existingQuantity;
+        existingQuantity = 0;
+      }
+      this.AllCoins[typeOfCoin] = existingQuantity;
       this.TotalQuantity += quantity;
       this.HasAnyCoins = (this.TotalQuantity > 0);
     }

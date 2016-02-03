@@ -70,5 +70,15 @@ namespace VendingMachineTests
       Assert.IsTrue(this._coinCollection.HasAnyCoins);
     }
 
+    [TestMethod]
+    public void shouldAllowAddingNegativeQuantitiesOfCoinsToTheCollection()
+    {
+      //Act & Assert
+      this._coinCollection.Add(InsertedCoin.Quarter, -7);
+      Assert.AreEqual(0, this._coinCollection.GetNumberOf(InsertedCoin.Quarter));
+      Assert.IsFalse(this._coinCollection.HasAnyCoins);
+    }
+
+
   }
 }
