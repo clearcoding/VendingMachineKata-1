@@ -44,6 +44,10 @@ namespace VendingMachineTests
       //Act & Assert
       this._coinCollection.Add(InsertedCoin.Quarter, 5);
       Assert.AreEqual(5, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
+
+      //Act & Assert [Test code path where coin already exists]
+      this._coinCollection.Add(InsertedCoin.Quarter, 5);
+      Assert.AreEqual(10, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
     }
 
     [TestMethod]
