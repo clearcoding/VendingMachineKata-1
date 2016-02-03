@@ -32,7 +32,7 @@ namespace VendingMachine
       return 0;
     }
 
-    public void Add(InsertedCoin typeOfCoin, int quantity)
+    public void Add(InsertedCoin typeOfCoin, int quantity = 1)
     {
       if (this.AllCoins.ContainsKey(typeOfCoin))
       {
