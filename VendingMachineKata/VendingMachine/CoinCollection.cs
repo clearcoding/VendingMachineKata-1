@@ -29,7 +29,9 @@ namespace VendingMachine
 
     public int GetNumberOf(InsertedCoin typeOfCoin)
     {
-      return 0;
+      int retVal = 0;
+      this.AllCoins.TryGetValue(typeOfCoin, out retVal);
+      return retVal;
     }
 
     public void Add(InsertedCoin typeOfCoin, int quantity = 1)

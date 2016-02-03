@@ -58,5 +58,13 @@ namespace VendingMachineTests
       Assert.AreEqual(1, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
     }
 
+    [TestMethod]
+    public void shouldAllowGettingQuantityOfCoinsWithinTheCollection()
+    {
+      //Act & Assert
+      this._coinCollection.Add(InsertedCoin.Quarter, 7);
+      Assert.AreEqual(7, this._coinCollection.GetNumberOf(InsertedCoin.Quarter));
+    }
+
   }
 }
