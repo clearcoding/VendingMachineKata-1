@@ -49,6 +49,11 @@ namespace VendingMachine
       this.HasAnyCoins = (this.TotalQuantity > 0);
     }
 
+    public void Remove(InsertedCoin typeOfCoin, int quantity = 1)
+    {
+      this.Add(typeOfCoin, (quantity * -1));
+    }
+
     public bool HasAnyCoins { get; private set; }
 
     #endregion

@@ -28,6 +28,13 @@ namespace VendingMachine
     void Add(InsertedCoin typeOfCoin, int quantity = 1);
 
     /// <summary>
+    /// Removes specified number of coins from collection
+    /// </summary>
+    /// <param name="typeOfCoin">The type of coin we are removing</param>
+    /// <param name="quantity">The quanity of coins to remove</param>
+    void Remove(InsertedCoin typeOfCoin, int quantity = 1);
+
+    /// <summary>
     /// Does the collection have any coins?
     /// </summary>
     /// <returns>True if the collection has any coins.  False otherwise</returns>

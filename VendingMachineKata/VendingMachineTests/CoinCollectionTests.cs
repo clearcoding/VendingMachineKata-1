@@ -79,6 +79,15 @@ namespace VendingMachineTests
       Assert.IsFalse(this._coinCollection.HasAnyCoins);
     }
 
+    [TestMethod]
+    public void shouldAllowRemovingQuantitiesOfCoinsFromTheCollection()
+    {
+      //Act & Assert
+      this._coinCollection.Add(InsertedCoin.Quarter, 12);
+      this._coinCollection.Remove(InsertedCoin.Quarter, 7);
+      Assert.AreEqual(5, this._coinCollection.GetNumberOf(InsertedCoin.Quarter));
+      Assert.IsTrue(this._coinCollection.HasAnyCoins);
+    }
 
   }
 }
