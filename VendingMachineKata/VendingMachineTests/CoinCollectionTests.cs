@@ -44,10 +44,12 @@ namespace VendingMachineTests
       //Act & Assert
       this._coinCollection.Add(InsertedCoin.Quarter, 5);
       Assert.AreEqual(5, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
+      Assert.IsTrue(this._coinCollection.HasAnyCoins);
 
       //Act & Assert [Test code path where coin already exists]
       this._coinCollection.Add(InsertedCoin.Quarter, 5);
       Assert.AreEqual(10, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
+      Assert.IsTrue(this._coinCollection.HasAnyCoins);
     }
 
     [TestMethod]
@@ -56,6 +58,7 @@ namespace VendingMachineTests
       //Act & Assert
       this._coinCollection.Add(InsertedCoin.Quarter);
       Assert.AreEqual(1, this._coinCollection.AllCoins[InsertedCoin.Quarter]);
+      Assert.IsTrue(this._coinCollection.HasAnyCoins);
     }
 
     [TestMethod]
@@ -64,6 +67,7 @@ namespace VendingMachineTests
       //Act & Assert
       this._coinCollection.Add(InsertedCoin.Quarter, 7);
       Assert.AreEqual(7, this._coinCollection.GetNumberOf(InsertedCoin.Quarter));
+      Assert.IsTrue(this._coinCollection.HasAnyCoins);
     }
 
   }

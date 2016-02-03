@@ -26,5 +26,11 @@ namespace VendingMachine
     /// <param name="typeOfCoin">The type of coin we are adding</param>
     /// <param name="quantity">The quanity of coins to add</param>
     void Add(InsertedCoin typeOfCoin, int quantity = 1);
+
+    /// <summary>
+    /// Does the collection have any coins?
+    /// </summary>
+    /// <returns>True if the collection has any coins.  False otherwise</returns>
+    bool HasAnyCoins { get; }
   }
 }
