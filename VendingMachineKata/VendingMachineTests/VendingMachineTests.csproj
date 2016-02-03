@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeProviderTests.cs" />
+    <Compile Include="CoinCollectionTests.cs" />
     <Compile Include="DisplayTests.cs" />
     <Compile Include="VendingMachineTests.cs" />
     <Compile Include="CoinAppraiserTests.cs" />
