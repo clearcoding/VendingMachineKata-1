@@ -24,7 +24,7 @@ namespace VendingMachine
     /// <summary>
     /// Coin return, consisting of types of coins and associated quantity
     /// </summary>
-    IDictionary<InsertedCoin, int> CoinReturn { get; }
+    ICoinCollection CoinReturn { get; }
 
     /// <summary>
     /// Gets the current display in use

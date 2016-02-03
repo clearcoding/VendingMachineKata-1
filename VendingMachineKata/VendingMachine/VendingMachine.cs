@@ -21,11 +21,11 @@ namespace VendingMachine
       this(
         new CoinAcceptor(),
         new CoinAppraiser(),
-        new Dictionary<InsertedCoin, int>(),
+        new CoinCollection(),
         new Display(),
         new ProductSelector(),
         new ChangeProvider(),
-        new Dictionary<InsertedCoin, int>())
+        new CoinCollection())
     {
     }
 
@@ -39,11 +39,11 @@ namespace VendingMachine
     public VendingMachine(
       ICoinAcceptor coinAcceptor,
       ICoinAppraiser coinAppraiser,
-      IDictionary<InsertedCoin, int> coinReturn,
+      ICoinCollection coinReturn,
       IDisplay display,
       IProductSelector productSelector,
       IChangeProvider changeProvider,
-      IDictionary<InsertedCoin, int> internalSafe)
+      ICoinCollection internalSafe)
     {
       this.CoinAcceptor = coinAcceptor;
       this.CoinAppraiser = coinAppraiser;
@@ -74,19 +74,12 @@ namespace VendingMachine
       // Rejected coins should go to return.  Otherwise, add them to current amount inserted.
       if (newCoin == InsertedCoin.Rejected)
       {
-        this.AddToCoinReturn(newCoin);
+        this.CoinReturn.Add(newCoin);
       }
       else
       {
         this.CurrentAmountInserted += this.CoinAppraiser.GetCoinValue(newCoin);
-        if (this.InternalSafe.ContainsKey(newCoin))
-        {
-          this.InternalSafe[newCoin]++;
-        }
-        else
-        {
-          this.InternalSafe.Add(newCoin, 1);
-        }
+        this.InternalSafe.Add(newCoin);
       }
 
       // Update display
@@ -101,8 +94,8 @@ namespace VendingMachine
     }
 
     public decimal CurrentAmountInserted { get; private set; }
-    public IDictionary<InsertedCoin, int> CoinReturn { get; private set; }
-    public IDictionary<InsertedCoin, int> InternalSafe { get; private set;  }
+    public ICoinCollection CoinReturn { get; private set; }
+    public ICoinCollection InternalSafe { get; private set;  }
 
     #endregion
 
@@ -177,30 +170,13 @@ namespace VendingMachine
       owed -= this.ProductSelectorButtons.GetProductPrice(this.ProductSelectorButtons.SelectedProduct);
      
       // Make our change
-      IDictionary<InsertedCoin, int> change = this.ChangeProvider.MakeChange(owed, this.InternalSafe, this.CoinAppraiser);
+      ICoinCollection change = this.ChangeProvider.MakeChange(owed, this.InternalSafe, this.CoinAppraiser);
       if (change != null)
       {
         //todo: enumerate or something else.  For now we know we are only limited to valid coins
-        this.AddToCoinReturn(InsertedCoin.Quarter, change[InsertedCoin.Quarter]);
-        this.AddToCoinReturn(InsertedCoin.Dime, change[InsertedCoin.Dime]);
-        this.AddToCoinReturn(InsertedCoin.Nickel, change[InsertedCoin.Nickel]);
-      }
-    }
-
-    /// <summary>
-    /// Adds coin(s) to coin return
-    /// </summary>
-    /// <param name="coin">The type of coin to place in the coin return</param>
-    /// <param name="quantity">The number of coins</param>
-    private void AddToCoinReturn(InsertedCoin coin, int quantity = 1)
-    {
-      if (this.CoinReturn.ContainsKey(coin))
-      {
-        this.CoinReturn[coin] += quantity;
-      }
-      else
-      {
-        this.CoinReturn.Add(coin, quantity);
+        this.CoinReturn.Add(InsertedCoin.Quarter, change.GetNumberOf(InsertedCoin.Quarter));
+        this.CoinReturn.Add(InsertedCoin.Dime, change.GetNumberOf(InsertedCoin.Dime));
+        this.CoinReturn.Add(InsertedCoin.Nickel, change.GetNumberOf(InsertedCoin.Nickel));
       }
     }
 

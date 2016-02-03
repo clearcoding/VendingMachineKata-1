@@ -9,12 +9,11 @@ namespace VendingMachine
   public class ChangeProvider : IChangeProvider
   {
 
-    public IDictionary<InsertedCoin, int> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom, ICoinAppraiser coinAppraiser)
+    public ICoinCollection MakeChange(decimal amountOfChange, ICoinCollection makeChangeFrom, ICoinAppraiser coinAppraiser)
     {
       // Ensure we have a stash to make change from and that we have an appraisor to determine value of coinage
       if (
             (makeChangeFrom == null) ||
-            (makeChangeFrom.Count == 0) ||
             (coinAppraiser == null)
          )
       {
@@ -31,7 +30,7 @@ namespace VendingMachine
       // Although, I doubt full code coverage exists within current 
       // test harness
 
-      IDictionary<InsertedCoin, int> change = new Dictionary<InsertedCoin, int>();
+      ICoinCollection change = new CoinCollection();
       decimal remaining = amountOfChange;
 
       remaining = this.CreateChange(InsertedCoin.Quarter, change, remaining, makeChangeFrom, coinAppraiser);
@@ -43,7 +42,11 @@ namespace VendingMachine
       //*****************************************************
 
       // Return
-      if ((change.Count == 0) || (remaining > 0))
+      //todo: refactoring for use if ICoinCollection, but need to add HasAny method to collection
+      int cnt = change.GetNumberOf(InsertedCoin.Quarter);
+      cnt += change.GetNumberOf(InsertedCoin.Dime);
+      cnt += change.GetNumberOf(InsertedCoin.Nickel);
+      if ((cnt == 0) || (remaining > 0))
       {
         return null;
       }
@@ -61,29 +64,23 @@ namespace VendingMachine
     /// <returns>Remaining change to make</returns>
     private decimal CreateChange(
       InsertedCoin coinToUse,
-      IDictionary<InsertedCoin, int> change,
+      ICoinCollection change,
       decimal amountOfChange,
-      IDictionary<InsertedCoin, int> makeChangeFrom,
+      ICoinCollection makeChangeFrom,
       ICoinAppraiser coinAppraiser)
     {
       decimal retVal = amountOfChange;
+      int totalNumberOfCoins = makeChangeFrom.GetNumberOf(coinToUse);
 
       // If the coinage exists within our pool to make change from, then do our adjustments
-      if ((makeChangeFrom.ContainsKey(coinToUse)) && (retVal > 0))
+      if ((totalNumberOfCoins > 0) && (retVal > 0))
       {
         decimal coinValue = coinAppraiser.GetCoinValue(coinToUse);
-        int numCoins = (int)(retVal / coinValue);
-        numCoins = Math.Min(numCoins, makeChangeFrom[coinToUse]);
-        retVal -= (numCoins * coinValue);
-        makeChangeFrom[coinToUse] -= numCoins;
-        if (change.ContainsKey(coinToUse))
-        {
-          change[coinToUse] += numCoins;
-        }
-        else if (numCoins > 0)
-        {
-          change.Add(coinToUse, numCoins);
-        }
+        int desiredNumberOfCoins = (int)(retVal / coinValue);
+        desiredNumberOfCoins = Math.Min(desiredNumberOfCoins, totalNumberOfCoins);
+        retVal -= (desiredNumberOfCoins * coinValue);
+        makeChangeFrom.Add(coinToUse, desiredNumberOfCoins * -1);      //todo: no remove method now.  Need to finish refactoring to get to green, then add remove method
+        change.Add(coinToUse, desiredNumberOfCoins);
       }
 
       // Return what's left

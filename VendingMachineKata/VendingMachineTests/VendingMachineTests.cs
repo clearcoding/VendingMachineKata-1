@@ -24,11 +24,11 @@ namespace VendingMachineTests
       this._vendingMachine = new VendingMachine.VendingMachine(
         new CoinAcceptor(),
         new CoinAppraiser(),
-        new Dictionary<InsertedCoin, int>(),
+        new CoinCollection(),
         new Display(),
         new ProductSelector(),
         new ChangeProvider(),
-        new Dictionary<InsertedCoin, int>());
+        new CoinCollection());
     }
 
     [TestMethod]
@@ -46,7 +46,7 @@ namespace VendingMachineTests
       //Act & Assert
       this._vendingMachine.InsertCoin(InsertableCoinWeights.WeightOfPenny, InsertableCoinSizes.SizeOfNickel);
       Assert.AreEqual((decimal)0.00, this._vendingMachine.CurrentAmountInserted);
-      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Rejected]);
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn.GetNumberOf(InsertedCoin.Rejected));
     }
 
     [TestMethod]
@@ -220,9 +220,9 @@ namespace VendingMachineTests
       Assert.IsTrue(wasProductRaised);       // Ensures no false positive from a timeout
 
       // Check for our left over change
-      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Quarter]);
-      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Dime]);
-      Assert.AreEqual(1, this._vendingMachine.CoinReturn[InsertedCoin.Nickel]);
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn.GetNumberOf(InsertedCoin.Dime));
+      Assert.AreEqual(1, this._vendingMachine.CoinReturn.GetNumberOf(InsertedCoin.Nickel));
     }
   }
 }

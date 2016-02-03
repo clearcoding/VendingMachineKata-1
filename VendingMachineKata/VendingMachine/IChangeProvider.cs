@@ -15,14 +15,14 @@ namespace VendingMachine
     /// Makes change for the specified amount
     /// </summary>
     /// <param name="amountOfChange">The amount of money for which change is required</param>
-    /// <param name="makeChangeFrom">The change that we have to make change from, coin types as keys with quanities as the value</param>
+    /// <param name="makeChangeFrom">The collection of change that we have to make change from</param>
     /// <param name="coinAppraiser">Used to determine value of coins in use</param>
     /// <returns>
-    /// A dictionary containing all coins to dispense (types and quantity, similar to makeChangeFrom).   
+    /// A coin collection containing all coins to dispense
     /// Null indicates change could not be made
     /// </returns>
     /// <remarks>The pool of coins within makeChangeFrom will be reduced by the change that was made</remarks>
-    IDictionary<InsertedCoin, int> MakeChange(decimal amountOfChange, IDictionary<InsertedCoin, int> makeChangeFrom, ICoinAppraiser coinAppraiser);
+    ICoinCollection MakeChange(decimal amountOfChange, ICoinCollection makeChangeFrom, ICoinAppraiser coinAppraiser);
 
   }
 }

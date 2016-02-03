@@ -30,17 +30,15 @@ namespace VendingMachineTests
     {
       //Act & Assert
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, null, this._coinAppraiser));
-      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, new Dictionary<InsertedCoin, int>(), this._coinAppraiser));
+      Assert.IsNull(this._changeProvider.MakeChange((decimal)0.00, new CoinCollection(), this._coinAppraiser));
     }
 
     [TestMethod]
     public void whenChangeIsNotMadeReturnNull()
     {
       // Arrange
-      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
-      {
-        {InsertedCoin.Nickel, 1}
-      };
+      ICoinCollection makeChangeFrom = new CoinCollection();
+      makeChangeFrom.Add(InsertedCoin.Nickel, 1);
 
       //Act & Assert
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.04, makeChangeFrom, this._coinAppraiser));
@@ -50,10 +48,8 @@ namespace VendingMachineTests
     public void whenNoAppraiserIsNotProvidedChangeCannotBeMade()
     {
       // Arrange
-      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
-      {
-        {InsertedCoin.Nickel, 5}
-      };
+      ICoinCollection makeChangeFrom = new CoinCollection();
+      makeChangeFrom.Add(InsertedCoin.Nickel, 5);
 
       //Act & Assert
       Assert.IsNull(this._changeProvider.MakeChange((decimal)0.15, makeChangeFrom, null));
@@ -63,57 +59,51 @@ namespace VendingMachineTests
     public void whenQuartersAreAvailableUseThem()
     {
       // Arrange
-      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
-      {
-        {InsertedCoin.Quarter, 5}
-      };
+      ICoinCollection makeChangeFrom = new CoinCollection();
+      makeChangeFrom.Add(InsertedCoin.Quarter, 5);
 
       //Act & Assert
-      IDictionary<InsertedCoin, int> change = this._changeProvider.MakeChange((decimal)0.50, makeChangeFrom, this._coinAppraiser);
+      ICoinCollection change = this._changeProvider.MakeChange((decimal)0.50, makeChangeFrom, this._coinAppraiser);
       Assert.IsNotNull(change);
-      Assert.AreEqual(2, change[InsertedCoin.Quarter]);
-      Assert.AreEqual(3, makeChangeFrom[InsertedCoin.Quarter]);
+      Assert.AreEqual(2, change.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(3, makeChangeFrom.GetNumberOf(InsertedCoin.Quarter));
     }
 
     [TestMethod]
     public void whenDimesAreAvailableUseThem()
     {
       // Arrange
-      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
-      {
-        {InsertedCoin.Quarter, 1},
-        {InsertedCoin.Dime, 6}
-      };
+      ICoinCollection makeChangeFrom = new CoinCollection();
+      makeChangeFrom.Add(InsertedCoin.Quarter, 1);
+      makeChangeFrom.Add(InsertedCoin.Dime, 6);
 
       //Act & Assert
-      IDictionary<InsertedCoin, int> change = this._changeProvider.MakeChange((decimal)0.75, makeChangeFrom, this._coinAppraiser);
+      ICoinCollection change = this._changeProvider.MakeChange((decimal)0.75, makeChangeFrom, this._coinAppraiser);
       Assert.IsNotNull(change);
-      Assert.AreEqual(1, change[InsertedCoin.Quarter]);
-      Assert.AreEqual(5, change[InsertedCoin.Dime]);
-      Assert.AreEqual(0, makeChangeFrom[InsertedCoin.Quarter]);
-      Assert.AreEqual(1, makeChangeFrom[InsertedCoin.Dime]);
+      Assert.AreEqual(1, change.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(5, change.GetNumberOf(InsertedCoin.Dime));
+      Assert.AreEqual(0, makeChangeFrom.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(1, makeChangeFrom.GetNumberOf(InsertedCoin.Dime));
     }
 
     [TestMethod]
     public void whenNickelsAreAvailableUseThem()
     {
       // Arrange
-      Dictionary<InsertedCoin, int> makeChangeFrom = new Dictionary<InsertedCoin, int>()
-      {
-        {InsertedCoin.Quarter, 1},
-        {InsertedCoin.Dime, 6},
-        {InsertedCoin.Nickel, 5 }
-      };
+      ICoinCollection makeChangeFrom = new CoinCollection();
+      makeChangeFrom.Add(InsertedCoin.Quarter, 1);
+      makeChangeFrom.Add(InsertedCoin.Dime, 6);
+      makeChangeFrom.Add(InsertedCoin.Nickel, 5);
 
       //Act & Assert
-      IDictionary<InsertedCoin, int> change = this._changeProvider.MakeChange((decimal)1.00, makeChangeFrom, this._coinAppraiser);
+      ICoinCollection change = this._changeProvider.MakeChange((decimal)1.00, makeChangeFrom, this._coinAppraiser);
       Assert.IsNotNull(change);
-      Assert.AreEqual(1, change[InsertedCoin.Quarter]);
-      Assert.AreEqual(6, change[InsertedCoin.Dime]);
-      Assert.AreEqual(3, change[InsertedCoin.Nickel]);
-      Assert.AreEqual(0, makeChangeFrom[InsertedCoin.Quarter]);
-      Assert.AreEqual(0, makeChangeFrom[InsertedCoin.Dime]);
-      Assert.AreEqual(2, makeChangeFrom[InsertedCoin.Nickel]);
+      Assert.AreEqual(1, change.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(6, change.GetNumberOf(InsertedCoin.Dime));
+      Assert.AreEqual(3, change.GetNumberOf(InsertedCoin.Nickel));
+      Assert.AreEqual(0, makeChangeFrom.GetNumberOf(InsertedCoin.Quarter));
+      Assert.AreEqual(0, makeChangeFrom.GetNumberOf(InsertedCoin.Dime));
+      Assert.AreEqual(2, makeChangeFrom.GetNumberOf(InsertedCoin.Nickel));
     }
   }
 }
