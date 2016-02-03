@@ -43,10 +43,7 @@ namespace VendingMachine
 
       // Return
       //todo: refactoring for use if ICoinCollection, but need to add HasAny method to collection
-      int cnt = change.GetNumberOf(InsertedCoin.Quarter);
-      cnt += change.GetNumberOf(InsertedCoin.Dime);
-      cnt += change.GetNumberOf(InsertedCoin.Nickel);
-      if ((cnt == 0) || (remaining > 0))
+      if ((!change.HasAnyCoins) || (remaining > 0))
       {
         return null;
       }
@@ -79,7 +76,7 @@ namespace VendingMachine
         int desiredNumberOfCoins = (int)(retVal / coinValue);
         desiredNumberOfCoins = Math.Min(desiredNumberOfCoins, totalNumberOfCoins);
         retVal -= (desiredNumberOfCoins * coinValue);
-        makeChangeFrom.Add(coinToUse, desiredNumberOfCoins * -1);      //todo: no remove method now.  Need to finish refactoring to get to green, then add remove method
+        makeChangeFrom.Remove(coinToUse, desiredNumberOfCoins);      
         change.Add(coinToUse, desiredNumberOfCoins);
       }
 
